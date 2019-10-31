@@ -44,7 +44,7 @@ for i in range(len(reads)):
 
 #Build BWT
 bwt = [ref[-1]]
-for i_read in start_of_read[8]:
+for i_read in start_of_read[len(ref)]:
     bwt.append(reads[i_read]["seq"][-1])
 for i in range(len(sa)):
     if isinstance(sa[i],int):
