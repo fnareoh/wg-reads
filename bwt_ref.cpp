@@ -123,18 +123,12 @@ int main(int argc,char* argv[]) {
         //parse custom format
         inFile >> ref;
         std::reverse(ref.begin(),ref.end());
-        int pos = 0;
-        std::string seq = "";
-        int total_size_read = 0;
-        std::string line;
-        while (std::getline(inFile,line)){
-            std::stringstream line_stream(line);
-            if (line_stream >> pos >> seq) {
+        int pos;
+        std::string seq;
+        /*while (inFile >> pos >> seq){
             reverse(seq.begin(),seq.end());
             reads.push_back(Read(ref.size()-pos,seq));
-            total_size_read = total_size_read + seq.size();
-            }
-        }
+        }*/
         std::cout << "Finished parsing input" << std::endl;
 
         //creation of the sa
@@ -143,17 +137,13 @@ int main(int argc,char* argv[]) {
         for(int i = 0; i < ref.size(); i++) {
             sa.push_back(Suffix(true,i,ref));
         }
-        for(int r = 0; r < reads.size(); r++) {
+        /*for(int r = 0; r < reads.size(); r++) {
             start_of_read[reads[r].pos].push_back(r);
             for(int i= 0; i < reads[r].seq.size(); i++){
                 sa.push_back(Suffix(false,i,ref,reads[r]));
             }
-        }
+        }*/
         std::cout << "Finished adding to sa" << std::endl;
-        std::cout << "size ref: " << ref.size() << std::endl;
-        std::cout << "total size of reads: " << total_size_read << std::endl;
-        std::cout << "sum: " <<  ref.size() + total_size_read << std::endl;
-        std::cout << "size sa: " << sa.size() << std::endl;
 
         std::sort(sa.begin(),sa.end());
         std::cout << "Finished ordering sa" << std::endl;
