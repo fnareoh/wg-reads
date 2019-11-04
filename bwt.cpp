@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <math.h>       /* log2 */
 
 
 class Read {
@@ -20,6 +21,9 @@ class Read {
 };
 
 Read empty_read = Read();
+int nb_comparison = 0;
+int estimated_nb_comparison = 0;
+int last_percent = -1;
 
 class Suffix {
     public:
@@ -74,6 +78,11 @@ class Suffix {
         }
 
         bool operator<(const Suffix & other) const {
+            nb_comparison++;
+            if (int(((float)nb_comparison / estimated_nb_comparison)*100) != last_percent ){
+                std::cout << int(((float) nb_comparison / estimated_nb_comparison)*100) << "%" << std::endl;
+                last_percent = int(((float)nb_comparison / estimated_nb_comparison)*100);
+            }
             int i = 0;
             while (true) {
                 char c = get_char(i);
@@ -149,12 +158,15 @@ int main(int argc,char* argv[]) {
                 sa.push_back(Suffix(false,i,ref,reads[r]));
             }
         }
+        /*
         std::cout << "Finished adding to sa" << std::endl;
         std::cout << "size ref: " << ref.size() << std::endl;
         std::cout << "total size of reads: " << total_size_read << std::endl;
         std::cout << "sum: " <<  ref.size() + total_size_read << std::endl;
         std::cout << "size sa: " << sa.size() << std::endl;
+        */
 
+        estimated_nb_comparison = sa.size()*log2(sa.size());
         std::sort(sa.begin(),sa.end());
         std::cout << "Finished ordering sa" << std::endl;
 
@@ -180,8 +192,8 @@ int main(int argc,char* argv[]) {
         /*
         for(int i = 0; i < bwt.size(); i++)
             std::cout << bwt[i]; 
-        */
         std::cout << std::endl;
+        */
         char last = bwt[0];
         int nb_last = 1;
         int nb_runs = 1;
@@ -189,13 +201,13 @@ int main(int argc,char* argv[]) {
             if (bwt[i] == last)
                 nb_last++;
             else {
-                std::cout << last << nb_last;
+                //std::cout << last << nb_last;
                 last = bwt[i];
                 nb_last = 1;
                 nb_runs++;
             }
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
         std::cout << "Number of runs: " << nb_runs << std::endl;
         std::cout << "average size of run: " << sa.size()/nb_runs << std::endl;
 
