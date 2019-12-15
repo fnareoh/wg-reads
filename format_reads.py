@@ -3,7 +3,7 @@ import sys, pysam
 
 def show(samfile):
   for r in samfile.fetch(until_eof=True):
-    print(r.get_reference_positions()[0],end=" "),
+    print(r.get_reference_positions()[0]),
     print(r.query_alignment_sequence)
 
 

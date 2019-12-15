@@ -21,8 +21,8 @@ class Read {
 };
 
 Read empty_read = Read();
-int nb_comparison = 0;
-int estimated_nb_comparison = 0;
+long long int nb_comparison = 0;
+long long int estimated_nb_comparison = 0;
 int last_percent = -1;
 
 class Suffix {
@@ -145,6 +145,7 @@ int main(int argc,char* argv[]) {
             }
         }
         std::cout << "Finished parsing input" << std::endl;
+        std::cout << "sum: " <<  ref.size() + total_size_read << std::endl;
 
         //creation of the sa
         std::vector<Suffix> sa;
@@ -162,7 +163,6 @@ int main(int argc,char* argv[]) {
         std::cout << "Finished adding to sa" << std::endl;
         std::cout << "size ref: " << ref.size() << std::endl;
         std::cout << "total size of reads: " << total_size_read << std::endl;
-        std::cout << "sum: " <<  ref.size() + total_size_read << std::endl;
         std::cout << "size sa: " << sa.size() << std::endl;
         */
 
